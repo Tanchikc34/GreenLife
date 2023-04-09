@@ -1,25 +1,24 @@
 package com.example.greenlife;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.MutableLiveData;
 
-import com.example.greenlife.databinding.ActivityHomeBinding;
+import com.example.greenlife.databinding.ActivityMenuBinding;
+
 public class MainActivityMenu extends AppCompatActivity {
 
-    private ActivityHomeBinding binding;
+    private ActivityMenuBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_menu);
 
-        ImageButton button = (ImageButton) findViewById(R.id.imageButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        binding.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -27,12 +26,10 @@ public class MainActivityMenu extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }catch (Exception e){
-
+                    System.out.println(e.getMessage());
                 }
             }
         });
 
-        PlantImage plant = new PlantImage("Анемона");
-        binding.setPlant(plant);
     }
 }
