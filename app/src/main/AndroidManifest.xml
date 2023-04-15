@@ -13,8 +13,9 @@
         android:theme="@style/Theme.GreenLife"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivityMenu"
-            android:exported="true">
+            android:name=".ui.menu.MainActivityMenu"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,9 +28,9 @@
         </activity>
 
         <activity
-            android:name=".MainActivityHome"
+            android:name=".ui.home.MainActivityHome"
             android:exported="true"
-            android:screenOrientation="userPortrait">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

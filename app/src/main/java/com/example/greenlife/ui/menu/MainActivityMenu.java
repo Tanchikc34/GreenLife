@@ -1,13 +1,16 @@
-package com.example.greenlife;
+package com.example.greenlife.ui.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.MutableLiveData;
 
+import com.example.greenlife.R;
 import com.example.greenlife.databinding.ActivityMenuBinding;
+import com.example.greenlife.ui.home.MainActivityHome;
 
 public class MainActivityMenu extends AppCompatActivity {
 
@@ -17,6 +20,9 @@ public class MainActivityMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_menu);
+        Window w = getWindow();
+        w.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         binding.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
