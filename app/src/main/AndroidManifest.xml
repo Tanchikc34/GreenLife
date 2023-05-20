@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GreenLife"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:name=".App">
         <activity
             android:name=".ui.menu.MainActivityMenu"
             android:exported="true"
@@ -41,7 +42,7 @@
         </activity>
 
         <activity
-            android:name=".ui.minigame.ActivityFlower"
+            android:name=".ui.minigame.ActivityMiniGame"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

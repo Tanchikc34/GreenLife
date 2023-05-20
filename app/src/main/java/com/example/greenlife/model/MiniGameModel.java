@@ -1,11 +1,9 @@
 package com.example.greenlife.model;
 
-import android.annotation.SuppressLint;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-public class FlowerModel {
+public class MiniGameModel {
     public final static int MAX_VALUE = 105;
     public final static int MIN_VALUE = 0;
 
@@ -19,7 +17,7 @@ public class FlowerModel {
     private MutableLiveData<Integer> lifeData;
     private MutableLiveData<Integer> imageData;
 
-    public FlowerModel(){
+    public MiniGameModel(){
         cell = 1;
         pollenMoney = 0;
         life = 3;
@@ -81,7 +79,7 @@ public class FlowerModel {
     }
 
     public void cellNum(){
-        cell = (int) Math.round(Math.random() * 25);
+        cell = (int) Math.round(Math.random() * 20);
         cellData.postValue(cell);
     }
 

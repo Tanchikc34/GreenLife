@@ -2,14 +2,11 @@ package com.example.greenlife.ui.home;
 
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.room.Room;
 
-import com.example.greenlife.db.App;
+import com.example.greenlife.App;
 import com.example.greenlife.db.AppDatabase;
 import com.example.greenlife.db.dao.PlantInfoDao;
 import com.example.greenlife.db.entity.PlantInfo;
@@ -52,15 +49,15 @@ public class HomeViewModel extends AndroidViewModel {
                 plant.changeIm();
             }
         }, 0, 3, TimeUnit.SECONDS);
-/*
-        AppDatabase db = App.getInstance().getDatabase();
+
+        AppDatabase db = ((App)getApplication()).getDatabase();
         PlantInfoDao plantInfoDao = db.plantInfoDao();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 plantInfoDao.insert(new PlantInfo("Анемона", "Анемона очень любит солнце", 1, 1, 1, 1));
             }
-        }).start();*/
+        }).start();
 
     }
 

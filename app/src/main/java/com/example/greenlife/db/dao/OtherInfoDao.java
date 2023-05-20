@@ -6,22 +6,22 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.greenlife.db.entity.MenuInfo;
+import com.example.greenlife.db.entity.OtherInfo;
 
 import java.util.List;
 
 @Dao
 public interface OtherInfoDao {
-    @Query("SELECT * FROM menuInfo")
-    List<MenuInfo> getAll();
-    @Query("SELECT * FROM menuInfo WHERE id = :id")
-    MenuInfo getById(long id);
+    @Query("SELECT * FROM otherInfo")
+    List<OtherInfo> getAll();
+    @Query("SELECT * FROM otherInfo WHERE id = :id")
+    OtherInfo getById(long id);
     @Insert
-    void insert(MenuInfo employee2);
+    void insert(OtherInfo employee2);
     @Update
-    void update(MenuInfo employee2);
+    void update(OtherInfo employee2);
     @Delete
-    void delete(MenuInfo employee2);
+    void delete(OtherInfo employee2);
     @Query("DELETE FROM menuInfo")
     void deleteAll();
 }
