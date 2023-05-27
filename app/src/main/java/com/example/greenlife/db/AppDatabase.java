@@ -10,7 +10,7 @@ import com.example.greenlife.db.entity.PlantInfo;
 import com.example.greenlife.db.dao.MenuInfoDao;
 import com.example.greenlife.db.entity.MenuInfo;
 
-@Database(entities = {PlantInfo.class, MenuInfo.class, OtherInfo.class}, version = 3)
+@Database(entities = {PlantInfo.class, MenuInfo.class, OtherInfo.class}, version = 4)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract PlantInfoDao plantInfoDao();
     public abstract MenuInfoDao menuInfoDao();

@@ -1,31 +1,29 @@
 package com.example.greenlife.model;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 public class MiniGameModel {
-    public final static int MAX_VALUE = 105;
-    public final static int MIN_VALUE = 0;
+
+    private final static int MAX_VALUE = 105;
+    private final static int MIN_VALUE = 0;
 
     private int cell;
     private int pollenMoney;
     private int life;
-    private int image;
 
     private MutableLiveData<Integer> cellData;
     private MutableLiveData<Integer> pollenData;
     private MutableLiveData<Integer> lifeData;
-    private MutableLiveData<Integer> imageData;
 
-    public MiniGameModel(){
-        cell = 1;
-        pollenMoney = 0;
+    public MiniGameModel(int pollenMoney){
+        this.pollenMoney = pollenMoney;
         life = 3;
-        image = 0;
         cellData = new MutableLiveData<>(cell);
-        pollenData = new MutableLiveData<>(pollenMoney);
+        pollenData = new MutableLiveData<>(this.pollenMoney);
         lifeData = new MutableLiveData<>(life);
-        imageData = new MutableLiveData<>(image);
     }
 
     public LiveData<Integer> getCellLiveData() {
@@ -38,17 +36,6 @@ public class MiniGameModel {
 
     public LiveData<Integer> getLifeLiveData() {
         return lifeData;
-    }
-
-    public LiveData<Integer> getImageLiveData() {
-        return imageData;
-    }
-
-    public void changeImage(){
-        if (image < 3){
-            image++;
-            imageData.postValue(image);
-        }
     }
 
     public void addPollen(int pollen){
@@ -79,7 +66,7 @@ public class MiniGameModel {
     }
 
     public void cellNum(){
-        cell = (int) Math.round(Math.random() * 20);
+        cell = (int) Math.round(Math.random() * 19);
         cellData.postValue(cell);
     }
 

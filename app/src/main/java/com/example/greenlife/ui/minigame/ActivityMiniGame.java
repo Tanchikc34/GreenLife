@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.greenlife.R;
 import com.example.greenlife.databinding.ActivityMiniGameBinding;
+import com.example.greenlife.ui.home.HomeViewModel;
 import com.example.greenlife.ui.home.MainActivityHome;
 
 public class ActivityMiniGame extends AppCompatActivity {
@@ -44,7 +45,7 @@ public class ActivityMiniGame extends AppCompatActivity {
 
             for (int j = 0; j < COLUMNS; j++) {
                 ImageView imageView = new ImageView(this);
-                imageView.setImageResource(R.drawable.bee);
+                imageView.setImageResource(R.drawable.costomization_bee);
                 //imageView.setBackgroundColor(Color.YELLOW);
 
                 int a = i * COLUMNS + j;
@@ -68,7 +69,7 @@ public class ActivityMiniGame extends AppCompatActivity {
         miniGameViewModel.getCellLiveData().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                miniGameViewModel.setBee((int) integer.longValue());
+                miniGameViewModel.setBee(integer);
                 flag += 1;
 
                 if (flag == 3){
@@ -83,6 +84,7 @@ public class ActivityMiniGame extends AppCompatActivity {
 
 
                 if (miniGameViewModel.getLifeLiveData().getValue().intValue() == 0){
+                    miniGameViewModel.minusPollen();
                     Intent intent = new Intent(ActivityMiniGame.this, MainActivityHome.class);
                     startActivity(intent);
                     finish();}
@@ -104,4 +106,12 @@ public class ActivityMiniGame extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MiniGameViewModel miniGameViewModel = new ViewModelProvider(this).get(MiniGameViewModel.class);
+        miniGameViewModel.upBd();
+    }
+
 }

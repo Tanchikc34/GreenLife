@@ -7,18 +7,17 @@ import androidx.room.PrimaryKey;
 public class MenuInfo {
     @PrimaryKey(autoGenerate = true)
     public long id;
-    public int day;
-
-    public MenuInfo(int day) {
-        this.day = day;
+    public long time;
+    public MenuInfo(Long time) {
+        this.time = time;
     }
 
     public long getId() {
         return id;
     }
 
-    public int getDay() {
-        return day;
+    public long getDay() {
+        return time;
     }
 
 

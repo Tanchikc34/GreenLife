@@ -9,7 +9,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.greenlife.App;
 import com.example.greenlife.db.AppDatabase;
 import com.example.greenlife.db.dao.OtherInfoDao;
+import com.example.greenlife.db.dao.PlantInfoDao;
 import com.example.greenlife.db.entity.OtherInfo;
+import com.example.greenlife.db.entity.PlantInfo;
 import com.example.greenlife.model.MiniGameModel;
 
 import java.util.concurrent.Executors;
@@ -22,32 +24,48 @@ public class MiniGameViewModel extends AndroidViewModel {
     int ROWS = 5;
     int COLUMNS = 4;
     private MutableLiveData<Boolean>[] beesLiveData = new MutableLiveData[ROWS * COLUMNS];
+    private OtherInfo otherInfo;
+    private OtherInfoDao otherInfoDao;
+    private AppDatabase db;
 
 
     public MiniGameViewModel(Application application){
         super(application);
-        model = new MiniGameModel();
+        db = ((App)application).getDatabase();
+        otherInfoDao = db.otherInfoDao();
+        model = new MiniGameModel(otherInfoDao.getById(1).money);
 
         Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 model.cellNum();
             }
-        }, 0, 2, TimeUnit.SECONDS);
+        }, 0, 1, TimeUnit.SECONDS);
 
         for(int i = 0; i < beesLiveData.length; i++){
             beesLiveData[i] = new MutableLiveData<>(false);
         }
 
-        AppDatabase db = ((App)application).getDatabase();
-        OtherInfoDao otherInfoDao = db.otherInfoDao();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-                otherInfoDao.insert(new OtherInfo(1));
+                otherInfoDao.insert(new OtherInfo(0));
             }
         }).start();
 
+        otherInfo = otherInfoDao.getById(1);
+        otherInfo.money = 0;
+    }
+
+    public void upBd(){
+        otherInfo.money = model.getPollenLiveData().getValue().intValue();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                otherInfoDao.update(otherInfo);
+            }
+        }).start();
     }
 
     public void minusLife(){
@@ -62,10 +80,6 @@ public class MiniGameViewModel extends AndroidViewModel {
         return model.getPollenLiveData();
     }
 
-    public LiveData<Integer> getImageLiveData(){
-        return model.getImageLiveData();
-    }
-
     public LiveData<Integer> getLifeLiveData(){
         return model.getLifeLiveData();
     }
@@ -73,6 +87,19 @@ public class MiniGameViewModel extends AndroidViewModel {
     public void addPollenClick(){
         model.addPollen(plusPollenValue);
     }
+
+    public void minusPollen(){
+        model.minusPollen();
+        if (model.getPollenLiveData().getValue().intValue() > 0){
+        otherInfo.money = model.getPollenLiveData().getValue().intValue() - 5;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                otherInfoDao.update(otherInfo);
+            }
+        }).start();}
+    }
+
     public LiveData<Boolean> getBeeLiveData(int position){
         return beesLiveData[position];
     }
@@ -80,6 +107,6 @@ public class MiniGameViewModel extends AndroidViewModel {
         beesLiveData[position].postValue(Boolean.FALSE);
     }
     public void setBee(int position){
-        beesLiveData[position - 1].postValue(Boolean.TRUE);
+        beesLiveData[position].postValue(Boolean.TRUE);
     }
 }

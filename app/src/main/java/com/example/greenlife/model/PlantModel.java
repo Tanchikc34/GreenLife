@@ -1,7 +1,13 @@
 package com.example.greenlife.model;
 
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.greenlife.App;
+import com.example.greenlife.db.AppDatabase;
+import com.example.greenlife.db.dao.PlantInfoDao;
 
 public class PlantModel {
     public final static int MAX_VALUE = 100;
@@ -17,15 +23,15 @@ public class PlantModel {
     private MutableLiveData<Integer> happyData;
     private MutableLiveData<Integer> imData;
 
-    public PlantModel(){
-        wetness = MAX_VALUE;
-        hp = MAX_VALUE;
-        happy = MAX_VALUE;
-        im = 0;
-        wetnessData = new MutableLiveData<>(wetness);
-        hpData = new MutableLiveData<>(hp);
-        happyData = new MutableLiveData<>(happy);
-        imData = new MutableLiveData<>(im);
+    public PlantModel(int wetness, int hp, int happy, int im){
+        this.wetness = wetness;
+        this.hp = hp;
+        this.happy = happy;
+        this.im = im;
+        wetnessData = new MutableLiveData<>(this.wetness);
+        hpData = new MutableLiveData<>(this.hp);
+        happyData = new MutableLiveData<>(this.happy);
+        imData = new MutableLiveData<>(this.im);
     }
 
     public LiveData<Integer> getWetnessLiveData() {
@@ -45,7 +51,7 @@ public class PlantModel {
     }
 
     public void changeIm(){
-        if (im < 14){
+        if (im < 13){
             im++;
             imData.postValue(im);
         }
@@ -60,11 +66,21 @@ public class PlantModel {
         }
     }
 
-    public void addHp(){
+    public void minusAll(){
+        hp = 0;
+        hpData.postValue(hp);
+        happy = 0;
+        happyData.postValue(happy);
+        wetness = 0;
+        wetnessData.postValue(wetness);
+    }
+
+
+    public void addHp(int hp){
         if (wetness > MAX_VALUE / 2 || happy > MAX_VALUE / 1.66){
-            if (hp < MAX_VALUE){
-                hp++;
-                hpData.postValue(hp);
+            if (this.hp < MAX_VALUE){
+                this.hp+= hp;
+                hpData.postValue(this.hp);
             }
         }
     }
@@ -102,39 +118,4 @@ public class PlantModel {
             wetnessData.postValue(wetness);
         }
     }
-
-    /*
-    // Текущее время
-    Date currentDate = new Date();
-    // Форматирование времени как "день.месяц.год"
-    DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-    String dateText = dateFormat.format(currentDate);
-
-    Date startDate = null;
-        try {
-        startDate = new SimpleDateFormat("dd.MM.yyyy").parse(dateText);
-    } catch (ParseException e) {
-        e.printStackTrace();
-    }
-    Date endDate = null;
-        try {
-        endDate = new SimpleDateFormat("dd.MM.yyyy").parse(dateText);
-    } catch (ParseException e) {
-        e.printStackTrace();
-    }
-
-
-    Calendar calendarStart = Calendar.getInstance();
-        calendarStart.setTimeInMillis(startDate.getTime());
-
-    Calendar calendarEnd = Calendar.getInstance();
-        calendarEnd.setTimeInMillis(endDate.getTime());
-
-    long difference = calendarEnd.getTimeInMillis() - calendarStart.getTimeInMillis();
-    long days = difference /(24* 60 * 60 * 1000);
-    String a = String.valueOf(days);
-
-    TextView imageView = findViewById(R.id.textView);
-        imageView.setText(a);*/
-
 }

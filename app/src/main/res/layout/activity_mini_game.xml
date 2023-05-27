@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_weight="1.2">
+            android:layout_weight="1.7">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,7 +138,8 @@
                 android:id="@+id/tableLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:shrinkColumns="*">
+                android:gravity="top"
+                android:shrinkColumns="*">>
 
             </TableLayout>
         </LinearLayout>
@@ -147,14 +148,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_weight="1">
+            android:layout_weight="1.7">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:scaleType="center"
+                android:scaleType="centerCrop"
                 android:src="@drawable/image_mini_game" />
         </LinearLayout>
 
